@@ -60,4 +60,4 @@ void DriveForward(float inches, int power)
 }
 }}}
 
-Thats it, check the RobotC tutorials for more information on how to get to the distance calculated in the units variable. There are many ways to go get there and for the backward function you simply put a negative in the equation and drive backwards instead of forwards.
+Thats it, check the [http://www.cmuroboticsacademy.com/solt/lessons/trctetrix/content/index.php RobotC tutorials] for more information on how to get to the distance calculated in the units variable. There are many ways to go get there and for the backward function you simply put a negative in the equation and drive backwards instead of forwards.
