@@ -30,7 +30,7 @@ the first thing we need to define is our constants. That is, What do we know wil
 
 The first constant would be the diameter of our wheels (this should be either 3 or 4 inches)
 
-The next constant is how many encoder "ticks" for a full revolution of the wheels. That is, what does the encoder read after a full revolution of the motor? this value was a bit tricky to find. the exact value is *1440* encoder "ticks" for a full revolution of the wheels. this is almost over precise for the drive train, its 4 ticks per degree.
+The next constant is how many encoder "ticks" for a full revolution of the wheels. That is, what does the encoder read after a full revolution of the motor? this value was a bit tricky to find. the exact value is *1440* encoder "ticks" for a full revolution of the wheels. this is almost over precise for the drive train, its *4 ticks per degree*.
 
 So lets put these values into RobotControl.c at the top:
 
