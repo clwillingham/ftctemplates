@@ -1,4 +1,4 @@
-# Basics of writing a reusable Autonomous Program that is easy to understand
+#summary Basics of writing a reusable Autonomous Program that is easy to understand
 
 = Introduction =
 There are many ways of writing an autonomous program. the simplest being directly entering everything into your main task (task main()). My general opinion of the most understandable is writing Lots of functions that take care of low level movement commands, then in the main task we can simply call the various functions that handle all of low level controls in the background where you don't have to worry about them. when finished your main task should contain code similer to this:
