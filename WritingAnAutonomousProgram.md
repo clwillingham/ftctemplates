@@ -1,0 +1,61 @@
+# Introduction #
+There are many ways of writing an autonomous program. the simplest being directly entering everything into your main task (task main()). My general opinion of the most understandable is writing Lots of functions that take care of low level movement commands, then in the main task we can simply call the various functions that handle all of low level controls in the background where you don't have to worry about them. when finished your main task should contain code similer to this:
+
+```
+task main()
+{
+   DriveForward(12*2, 100); //drive forward 2 feet at 100% power
+   TurnLeft(90, 50); //rotate left 90 degrees at 50% power
+   DriveBackward(12, 100); //drive backward 1 foot at 100% power
+}
+```
+
+As you can see, this can make Autonomous code far easier to understand, it also makes it easy to Reuse the low level commands for several years, speeding up Autonomous writing.
+
+# Details #
+
+So how do you start from scratch?
+Lets start with the structure of the code:
+To make the code reusable we are going to Take all of the movement functions and put them all in a separate file. this file will be called RobotControl.c. download the template to get a skeleton of this file.
+
+## Forward and Backward ##
+
+Lets write the Forward and backward commands first.
+
+in order to drive forward or backward we must have Encoders attached to at-least one side of the drive train(Assuming you have a differential steering system). Now that we have encoders that can tell us how far we've gone we must figure out how far we need to go. to do this we need to do a little math:
+
+the first thing we need to define is our constants. That is, What do we know will stay the same throughout the entire game game?
+
+The first constant would be the diameter of our wheels (this should be either 3 or 4 inches)
+
+The next constant is how many encoder "ticks" for a full revolution of the wheels. That is, what does the encoder read after a full revolution of the motor? this value was a bit tricky to find. the exact value is **1440** encoder "ticks" for a full revolution of the wheels. this is almost over precise for the drive train, its **4 ticks per degree**.
+
+So lets put these values into RobotControl.c at the top:
+
+```
+const float WheelDiameter = 4; //the diameter of the wheels in inches
+const int UPR = 1440;          //the Encoder Units Per Rotation.
+```
+
+from these two constants we can now derive the rest of the information we need to calculate how far we need to go in encoder ticks. First thing we need to find is the circumference of our wheels. anyone who has any knowledge of geomotry should know the equation:
+
+```
+const float WheelCircumference = PI*WheelDiameter
+```
+
+Now that we have the wheel circumference and diameter and the units per rotation, we can figure out how far the robot move for each unit (or tick) on the encoder. this can be derrived by deviding the wheel circumference by the Units per rotation:
+
+```
+const float DistancePerUnit = WheelCircumference/UPR;
+```
+
+Now we have enough information to start working on our DriveForward function. We have enough information to be able to calculate how many encoder units we need to drive forward:
+```
+void DriveForward(float inches, int power)
+{
+  long units = inches/DistancePerUnit; //this calculates the number of encoder ticks necessary to drive the inputted number of inches
+  //turn on the motors and drive forward until the encoder value is equal to or greator than units.
+}
+```
+
+Thats it, check the [RobotC tutorials](http://www.cmuroboticsacademy.com/solt/lessons/trctetrix/content/index.php) for more information on how to get to the distance calculated in the units variable. There are many ways to go get there and for the backward function you simply put a negative in the equation and drive backwards instead of forwards.
